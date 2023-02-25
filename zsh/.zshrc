@@ -103,9 +103,12 @@ setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
 export EDITOR=lvim
 export PATH="$PATH:~/SDKs/flutter/bin"
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin
+export PATH="$HOME/.cargo/bin:$PATH"
+export KUBECONFIG="$HOME/.kube/config"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-export KUBECONFIG="$HOME/.kube/config"
 
 eval "$(jump shell)"
 plugins=(command-not-found git kubectl history emoji encode64 sudo web-search copyfile copybuffer dirhistory jsontools)
@@ -121,11 +124,15 @@ plugins=(command-not-found git kubectl history emoji encode64 sudo web-search co
 
 # aliases 
 # navigation and running files and folders 
+alias rm=trash
 alias aliases="lvim  ~/.oh-my-zsh/custom/aliases.zsh"
 alias phpPro="cd /opt/lampp/htdocs/"
 alias lvim="~/.local/bin/lvim"
 alias xampp="cd /opt/lampp/ && sudo ./manager-linux-x64.run"
+alias beekeeper="cd ~/AppsImage/ && clear && ./Beekeeper-Studio-3.7.10.AppImage"
+alias goMigrate="~/AppsImage/migrate"
 alias mux="tmuxinator"
+alias cleanCache="sudo dnf clean dbcache && dnf clean expire-cache && dnf clean metadata && dnf clean packages && dnf clean all"
 # alias editTheme="p10k configure" #configure the oh-my-zsh theme
 
 # docker
@@ -143,7 +150,7 @@ alias skaffold="skaffold dev --trigger polling"
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias glog1="git  log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
 alias glline="git log --oneline"
-alias gc="git commit"
+alias gc="git add . && git commit -m"
 alias gs="pretty-git-status"
 alias gsamend="git commit --amend" # undo last commit
 alias gb="git branch" #+branchName: create
@@ -178,4 +185,49 @@ alias gpom="git push origin master" #or git push origin pancake:waffle: local:re
 alias gpt="git push --tags" #to push with tags
 alias grebase="git rebase" #same as merge,but it will rewrite the commit hashes
 alias gri="git rebase -i" #+ HEAD~6, to add files,drop/edit commits
-alias greflog="git reflog" #
+alias greflog="git reflog" #default to head, or:
+# git reflog master@{one.week.ago}
+alias gtl="git tag -l" #or eg + "*beta"
+alias gt="git tag" #+ tagName +commitHash: tagging a commit
+alias gta="git tag -a" #to create annotated tag
+alias gtd="git tag -d" #delete
+alias gcf="git cat-file -p" #or + -t + commitHash, see info about commit
+# alias ghash="echo 'hello' | git hash-object --stdin"
+alias gLogCountAll="git rev-list --all --count" #or --count <revision> 
+# laravel 
+alias pa="php artisan"
+alias laraCreate="composer create-project --prefer-dist laravel/laravel"
+alias jetstream="composer require laravel/jetstream"
+alias livewire="php artisan jetstream:install livewire"
+alias laraEnv="php artisan env"
+alias laraRoutes="php artisan route:list"
+alias migrate="php artisan migrate"
+alias pamc="php artisan make:controller"
+alias pamm="php artisan make:model"
+alias pammigration="php artisan make:migration"
+alias pammiddleware="php artisan make:middleware"
+alias pamf="php artisan make:factory"
+alias pams="php artisan make:seeder"
+alias pamj="php artisan make:job"
+alias pasl="php artisan storage:link"
+alias pacc="php artisan config:cache"
+alias parc="php artisan route:cache"
+alias pads="php artisan db:seed"
+# npm 
+alias npmlist="npm list"
+alias npmlistglobal="npm list -g --depth=0"
+alias npmroot="npm root -g"
+
+# multi purpose commands 
+alias dirsize="du -hs"
+alias foldersSize="du -h --max-depth=1 | sort -h"
+alias path='echo $PATH | tr -s ":" "\n"' # Pretty print the path
+alias systemInfo="cat /etc/os-release"
+# alias filesUnderscore="find $1 -name "* *.*" -type f -print0 | \
+# while read -d $'\0' f; do mv -v "$f" "${f// /_}"; done"
+# alias filesFoldersUnderscore="find -name "* *" -print0 | sort -rz | \
+# while read -d $'\0' f; do mv -v "$f" "$(dirname "$f")/$(basename "${f// /_}")"; done"
+# netstat -ano | findstr :80
+# taskkill /PID <LISTENING> /F
+# last personal access token for github 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
+

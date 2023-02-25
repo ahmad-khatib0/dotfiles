@@ -1,3 +1,6 @@
+# import: 
+#   - ./dracula.yml
+
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 # Any items in the `env` entry below will be added as
@@ -83,48 +86,56 @@ env:
   # scrollback is enabled (history > 0).
   #multiplier: 3
 
-colors:
+colors: 
   # Default colors
   primary:
-    background: '#000000'
-    foreground: '#dddddd'
+    background: "#000000"
+    foreground: "#dddddd"
 
   # Normal colors
   normal:
-    black: '#000000'
-    red: '#cc0403'
-    green: '#19cb00'
-    yellow: '#cecb00'
-    blue: '#0d73cc'
-    magenta: '#cb1ed1'
-    cyan: '#0dcdcd'
-    white: '#dddddd'
+    black: "#000000"
+    red: "#cc0403"
+    green: "#19cb00"
+    yellow: "#cecb00"
+    blue: "#0d73cc"
+    magenta: "#cb1ed1"
+    cyan: "#0dcdcd"
+    white: "#dddddd"
 
   # Bright colors
   bright:
-    black: '#767676'
-    red: '#f2201f'
-    green: '#23fd00'
-    yellow: '#fffd00'
-    blue: '#1a8fff'
-    magenta: '#fd28ff'
-    cyan: '#14ffff'
-    white: '#ffffff'
+    black: "#767676"
+    red: "#f2201f"
+    green: "#23fd00"
+    yellow: "#fffd00"
+    blue: "#1a8fff"
+    magenta: "#fd28ff"
+    cyan: "#14ffff"
+    white: "#ffffff"
+      
 theme: Kitty
-
+window:
+  opacity: 0.90
 
 font:
   normal:
-    family: "FiraCode"
-    style: Bold
+    family: "FiraCode Nerd Font"
+    # family: "Hack"
+    style: SemiBold
   bold:
-    family: "FiraCode"
+    family: "FiraCode Nerd Font"
     styly: Bold
-  italic: 
-    family: "FiraCode"
+  italic:
+    family: "FiraCode Nerd Font"
     style: Italic
-  bold_italic: 
-    family: "FiraCode" 
+  bold_italic:
+    family: "FiraCode Nerd Font"
     style: Bold Italic
   # Point size
-  size: 12.0
+  size: 13.0
+
+
+# key_bindings:
+#   - { key: J,        mods: Control|Shift, chars: "\x1b[74;5u"                 }
+#   - { key: H,        mods: Control|Shift, chars: "\x1b[72;5u"                }
