@@ -15,7 +15,7 @@ vim.opt.smartcase = true -- smart case
 vim.opt.smartindent = true -- make indenting smarter again
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
 -- vim.opt.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
-vim.opt.undodir = vim.fn.stdpath "cache" .. "/undo"
+vim.opt.undodir = vim.fn.stdpath("cache") .. "/undo"
 vim.opt.undofile = true -- enable persistent undo, which allows for the undotree to be saved to a file when exiting a buffer
 vim.opt.undofile = true -- enable persistent undo
 vim.opt.updatetime = 300 -- faster completion
@@ -81,6 +81,7 @@ lvim.builtin.treesitter.ensure_installed = {
 require("mason-tool-installer").setup({
   run_on_start = true,
   ensure_installed = {
+    "emmet-ls",
     "stylua",
     "prettier",
     "editorconfig-checker",
@@ -103,16 +104,6 @@ lvim.lsp.installer.setup.ensure_installed = {
   "vuels",
   "rust_analyzer",
 }
-
--- add your own keymapping
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
-lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
-lvim.keys.normal_mode["<C-q>"] = ":%bd|e#<CR>"
-lvim.keys.normal_mode["<C-PageDown>"] = ":BufferLineMovePrev<CR>"
-lvim.keys.normal_mode["<C-PageUp>"] = ":BufferLineMoveNext<CR>"
-lvim.keys.normal_mode["<C-p>"] = ":Telescope resume<cr>"
-lvim.builtin.terminal.open_mapping = "<c-t>"
 
 -- Or map default functionality to a different key:
 -- lvim.lsp.buffer_mappings.normal_mode['gk'] = lvim.lsp.buffer_mappings.normal_mode['K']
@@ -264,24 +255,40 @@ lvim.builtin.which_key.mappings["F"] = {
 
 -- Additional Plugins
 lvim.plugins = {
+  -- themes
+  { "christianchiarulli/nvcode-color-schemes.vim" },
+  { "martinsione/darkplus.nvim" },
   {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
   { "LudoPinelli/comment-box.nvim" }, -- Clarify and beautify your comments
+  { "mg979/vim-visual-multi" }, --  Multiple cursors
+  { "p00f/nvim-ts-rainbow" },
+  { "tpope/vim-repeat" },
+  { "rottencandy/vimkubectl" },
+  { "manzeloth/live-server" },
+  { "AndrewRadev/splitjoin.vim" },
   { "WhoIsSethDaniel/mason-tool-installer.nvim" },
-  { "nvim-treesitter/nvim-treesitter-angular" },
-  { "christianchiarulli/nvcode-color-schemes.vim" },
-  { 'martinsione/darkplus.nvim' },
-  { 'quick-lint/quick-lint-js',
-    rtp = 'plugin/vim/quick-lint-js.vim',
-    tag = '2.11.0',
-    opt = true,
+  { "KabbAmine/vCoolor.vim" }, -- color picker
+  { "sudormrfbin/cheatsheet.nvim" }, -- nvim cheatsheat
+  { "sbdchd/neoformat" },
+  { "michaelb/sniprun",                         run = "bash ./install.sh" }, --  a code runner plugin
+  {
+    "folke/todo-comments.nvim",
+    config = function()
+      require("todo-comments").setup({})
+    end,
   },
   {
-    "jose-elias-alvarez/typescript.nvim",
+    "ggandor/lightspeed.nvim",
+    event = "BufRead",
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
     config = function()
-      require("typescript").setup({ debug = false })
+      require("lsp_signature").on_attach()
     end,
   },
   {
@@ -291,14 +298,229 @@ lvim.plugins = {
     end,
   },
   {
-    "akinsho/flutter-tools.nvim",
+    "kylechui/nvim-surround",
     config = function()
-      require("flutter-tools").setup {}
+      require("nvim-surround").setup({})
     end,
   },
+  {
+    "smjonas/inc-rename.nvim", -- Incremental LSP renaming
+    config = function()
+      require("inc_rename").setup({})
+    end,
+  },
+  {
+    "j-hui/fidget.nvim", --  Standalone UI for nvim-lsp progress
+    config = function()
+      require("fidget").setup({})
+    end,
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    requires = "kevinhwang91/promise-async",
+    config = function()
+      require("ufo").setup({})
+    end,
+  },
+  {
+    "nacro90/numb.nvim", --  Peek lines just when you intend
+    config = function()
+      require("numb").setup()
+    end,
+  },
+  {
+    "stevearc/overseer.nvim", -- A task runner and job management plugin
+    config = function()
+      require("overseer").setup()
+    end,
+  },
+  {
+    "narutoxy/dim.lua", --  Dim unused words
+    config = function()
+      require("dim").setup({})
+    end,
+  },
+  {
+    "ErichDonGubler/lsp_lines.nvim", -- fix Windows issues with `packer.nvim`
+    config = function()
+      require("lsp_lines").setup()
+    end,
+  },
+  {
+    "anuvyklack/pretty-fold.nvim",
+    config = function()
+      require("pretty-fold").setup()
+    end,
+  },
+  {
+    "anuvyklack/fold-preview.nvim",
+    requires = "anuvyklack/keymap-amend.nvim",
+    config = function()
+      require("fold-preview").setup()
+    end,
+  },
+  {
+    "phaazon/hop.nvim",
+    event = "BufRead",
+    config = function()
+      require("hop").setup()
+      vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+    end,
+  },
+  {
+    "simrat39/symbols-outline.nvim",
+    config = function()
+      require("symbols-outline").setup()
+    end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
+  {
+    "andymass/vim-matchup",
+    event = "CursorMoved",
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
+  },
+  {
+    "karb94/neoscroll.nvim", -- Smooth scrolling
+    event = "WinScrolled",
+    config = function()
+      require("neoscroll").setup({})
+    end,
+  },
+  {
+    "ethanholz/nvim-lastplace",
+    event = "BufRead",
+    config = function()
+      require("nvim-lastplace").setup({
+        lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+        lastplace_ignore_filetype = {
+          "gitcommit",
+          "gitrebase",
+          "svn",
+          "hgcommit",
+        },
+        lastplace_open_folds = true,
+      })
+    end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({ "css", "scss", "html", "javascript" }, {
+        RRGGBBAA = true,
+        rgb_fn = true, -- CSS rgb() and rgba() functions
+        hsl_fn = true, -- CSS hsl() and hsla() functions
+        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+      })
+    end,
+  },
+  {
+    "kevinhwang91/nvim-bqf", -- Better quickfix window
+    event = { "BufRead", "BufNew" },
+    config = function()
+      require("bqf").setup({
+        auto_enable = true,
+        preview = {
+          win_height = 12,
+          win_vheight = 12,
+          delay_syntax = 80,
+          border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+        },
+        func_map = {
+          vsplit = "",
+          ptogglemode = "z,",
+          stoggleup = "",
+        },
+        filter = {
+          fzf = {
+            action_for = { ["ctrl-s"] = "split" },
+            extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
+          },
+        },
+      })
+    end,
+  },
+  -- golang
+  {
+    "olexsmir/gopher.nvim", --  make golang development easiest
+    config = function()
+      require("gopher").setup({})
+    end,
+  },
+  {
+    "ray-x/go.nvim",
+    config = function()
+      require("go").setup()
+    end,
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  },
+  -- git
+  -- {
+  --   "tanvirtin/vgit.nvim",
+  --   config = function()
+  --     require("vgit").setup({
+  --       settings = {
+  --         live_blame = { enabled = false },
+  --       },
+  --     })
+  --   end,
+  -- },
+  {
+    "akinsho/git-conflict.nvim",
+    tag = "*",
+    config = function()
+      require("git-conflict").setup()
+    end,
+  },
+  -- javascript
+  { "rhysd/vim-fixjson" },
+  { "nvim-treesitter/nvim-treesitter-angular" },
+  { "hollowtree/vscode-vue-snippets" },
+  { "quick-lint/quick-lint-js",               rtp = "plugin/vim/quick-lint-js.vim", tag = "2.11.0", opt = true },
+  {
+    "jose-elias-alvarez/typescript.nvim",
+    config = function()
+      require("typescript").setup({ debug = false })
+    end,
+  },
+  -- flutter
+  { "Nash0x7E2/awesome-flutter-snippets" },
+  {
+    "akinsho/flutter-tools.nvim",
+    config = function()
+      require("flutter-tools").setup({})
+    end,
+  },
+  -- dap plugins
+  { "ravenxrz/DAPInstall.nvim" },
+  { "mfussenegger/nvim-dap-python" },
+  { "mxsdev/nvim-dap-vscode-js",         requires = { "mfussenegger/nvim-dap" } },
+  { "leoluz/nvim-dap-go",                module = "dap-go" },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    requires = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end,
+  },
+  -- rust
+  { "simrat39/rust-tools.nvim" },
 }
 
-local lspconfig = require("lspconfig")
+--  ********************************************************************************
+--  ********************************* Lsp Settings *********************************
+--  ********************************************************************************
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.foldingRange = {
@@ -306,30 +528,105 @@ capabilities.textDocument.foldingRange = {
   lineFoldingOnly = true,
 }
 
-require("luasnip.loaders.from_vscode").lazy_load() -- You can pass { paths = "./my-snippets/"} as well
--- lspconfig.emmet_ls.setup({
---   -- emmit , first run npm install -g emmet-ls
---   capabilities = capabilities,
---   filetypes = { "html", "typescriptreact", "javascriptreact", "js", "vue", "css", "sass", "scss", "less" },
---   init_options = { html = { options = { ["bem.enabled"] = true } } },
--- })
-
-
 require("lspconfig").volar.setup({
   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
   nit_options = {
-    -- typescript = {
-    --   tsdk = "~/.nvm/versions/node/v14.18.1/lib/node_modules/typescript/lib",
-    -- },
+    typescript = {
+      tsdk = "~/.nvm/versions/node/v14.18.1/lib/node_modules/typescript/lib/",
+    },
+  },
+})
+
+lvim.builtin.telescope.on_config_done = function(telescope)
+  pcall(telescope.load_extension, "dap")
+end
+
+--  *************************************************************************************
+--  ********************************* Plugins Settings *********************************
+--  *************************************************************************************
+
+require("luasnip.loaders.from_vscode").lazy_load() -- You can pass { paths = "./my-snippets/"} as well
+local rt = require("rust-tools")
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
+
+--  ********************************************************************************
+--  ********************************** keybindings *********************************
+--  ********************************************************************************
+lvim.builtin.which_key.mappings['?'] = {}
+lvim.builtin.which_key.mappings[';'] = {}
+
+lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<C-q>"] = ":%bd|e#<CR>"
+lvim.keys.normal_mode["<C-PageDown>"] = ":BufferLineMovePrev<CR>"
+lvim.keys.normal_mode["<C-PageUp>"] = ":BufferLineMoveNext<CR>"
+lvim.keys.normal_mode["<C-p>"] = ":Telescope resume<cr>"
+lvim.builtin.terminal.open_mapping = "<c-t>"
+
+vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+
+local hop = require("hop")
+local directions = require("hop.hint").HintDirection
+vim.keymap.set("", "f", function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+end, { remap = true })
+vim.keymap.set("", "F", function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+end, { remap = true })
+vim.keymap.set("", "t", function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+end, { remap = true })
+vim.keymap.set("", "T", function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+end, { remap = true })
+
+--  *************************************************************************************
+--  ********************************* Debuging Settings *********************************
+--  *************************************************************************************
+
+local dap_install = require("dap-install")
+dap_install.setup({
+  installation_path = "/home/ahmad-khatib/debuggers/",
+})
+
+dap_install.config("php", {
+  adapters = {
+    type = "executable",
+    command = "node",
+    args = { "/home/ahmad-khatib/debuggers/php/vscode-php-debug/out/phpDebug.js" },
+  },
+  configurations = {
+    {
+      name = "run current script",
+      type = "php",
+      request = "launch",
+      port = 9003,
+      cwd = "${fileDirname}",
+      program = "${file}",
+      runtimeExecutable = "php",
+    },
+    {
+      type = "php",
+      request = "launch",
+      name = "Listen for xdebug",
+      port = 9003,
+      log = true,
+    },
   },
 })
 
 --  ****************************************************************************************************
 --  ****************************************************************************************************
---
 --  *********************************         INFORMATION              *********************************
---  *********************************                                  *********************************
---  *********************************                                  *********************************
 --  ****************************************************************************************************
 --  ****************************************************************************************************
 
@@ -369,6 +666,41 @@ require("lspconfig").volar.setup({
 -- <CR> <Tab>	                 jump to next jumpable in a snippet	           insert
 -- <S-Tab>	                  jump to previous jumpable in a snippet	       insert
 --
---
---To see if a particular key has already been bound:       :verbose map <TAB>
+-- To see if a particular key has already been bound:       :verbose map <TAB>
 -- :nmap for normal, :vmap for visual, :imap for insert.
+--
+--- ****************************************************************************************************
+--- ****************************************************************************************************
+--  *************************************** Sidebar Commands *******************************************
+--  ****************************************************************************************************
+--  ****************************************************************************************************
+
+-- Lsp   &&     Mason      &&        TS           &&     Packer    package managers
+-- :Bracey                    live editing
+-- :IncRename + pattern       rename a text
+-- :Codi                      interactive floating window. (for php install psysh )
+-- :Dap                       debug in nvim
+-- :Kget | apply ....         kubernetes
+-- :Neoformat  prettier       or any formatter
+-- :LiveServer
+-- :Octo                      git issues or PRs or .......... in nvim
+-- :SaveSession | Search
+-- :SymbolsOutline            toggle code tree
+-- :TOhtml                    confert any file type to an html file with all lines sournded with spans
+-- :COQnow                    will start coq_nvim  (autocomplete )
+-- :DIInstall a-name-of-debuger  the list of available can be fund in the repo
+-- google-chrome --remote-debugging-port=9222     lunches chrome
+-- :Pantran interactive language translation ui
+-- :vimgrep /\w\+/j % | copen      open quickfix
+--
+-- nvim-surround
+-- ys{motion}{char}, ds{char}, and cs{target}{replacement}  => add/delete/change
+--     Old text                    Command         New text
+--------------------------------------------------------------------------------
+-- surr*ound_words             ysiw)           (surround_words)
+-- *make strings               ys$"            "make strings"
+-- [delete ar*ound me!]        ds]             delete around me!
+-- remove <b>HTML t*ags</b>    dst             remove HTML tags
+-- 'change quot*es'            cs'"            "change quotes"
+-- <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
+-- delete(functi*on calls)     dsf             function calls

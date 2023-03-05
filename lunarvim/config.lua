@@ -1,5 +1,10 @@
--- my config
-
+-- vim.opt.list           = true
+-- vim.opt.listchars:append "space: "
+-- vim.opt.listchars:append "eol:↴"
+-- vim.opt.spell = true
+-- vim.opt.spelllang = "en"
+-- lvim.transparent_window = true
+-- lvim.colorscheme = "tokyonight-moon"
 vim.opt.ruler = true
 vim.opt.termguicolors = true
 vim.opt.foldcolumn = "1"
@@ -8,15 +13,6 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldenable = true
 vim.opt.encoding = "utf-8"
 vim.diagnostic.config({ virtual_lines = true })
-
--- vim.opt.list           = true
--- vim.opt.listchars:append "space: "
--- vim.opt.listchars:append "eol:↴"
--- vim.opt.spell = true
--- vim.opt.spelllang = "en"
-
--- lvim.transparent_window = true
--- lvim.colorscheme = "tokyonight-moon"
 lvim.colorscheme = "codedark"
 lvim.lsp.diagnostics.virtual_text = false
 lvim.foldmethod = "expr"
@@ -43,15 +39,6 @@ lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.matchup.enable = true
 lvim.builtin.telescope.extensions.project = {}
 lvim.builtin.telescope.defaults.file_ignore_patterns = { "node%_modules/.*", ".git/.*", "tags" }
-
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-lvim.keys.normal_mode["<C-l>"] = ":BufferLineCycleNext<cr>"
-lvim.keys.normal_mode["<C-h>"] = ":BufferLineCyclePrev<cr>"
-lvim.keys.normal_mode["<C-q>"] = ":%bd|e#<CR>"
-lvim.keys.normal_mode["<C-PageDown>"] = ":BufferLineMovePrev<CR>"
-lvim.keys.normal_mode["<C-PageUp>"] = ":BufferLineMoveNext<CR>"
-lvim.keys.normal_mode["<C-p>"] = ":Telescope resume<cr>"
-lvim.keys.normal_mode["<C-]>"] = ":EasyCompleteGotoDefinition<cr>"
 
 require("mason-tool-installer").setup({
   run_on_start = true,
@@ -128,9 +115,7 @@ lvim.builtin.treesitter.ensure_installed = {
 }
 
 lvim.plugins = {
-  { "williamboman/nvim-lsp-installer" },
-  { "WhoIsSethDaniel/mason-tool-installer.nvim" },
-  { "mg979/vim-visual-multi" }, --  Multiple cursors
+  -- not used in short config
   { "ryanoasis/vim-devicons" },
   { "nvim-treesitter/nvim-treesitter-angular" },
   { "nvim-telescope/telescope-smart-history.nvim" },
@@ -140,44 +125,129 @@ lvim.plugins = {
   { "ludovicchabant/vim-gutentags" }, -- tags file
   { "jghauser/mkdir.nvim" },
   { "diepm/vim-rest-console" }, -- rest client
-  { "p00f/nvim-ts-rainbow" },
-  { "tpope/vim-repeat" },
-  { "rottencandy/vimkubectl" }, -- Manage Kubernetes resources
-  { "MunifTanjim/prettier.nvim" },
-  { "sbdchd/neoformat" },
-  { "manzeloth/live-server" },
-  { "kdheepak/lazygit.nvim" },
-  { "sindrets/diffview.nvim",                     requires = "nvim-lua/plenary.nvim" },
   { "metakirby5/codi.vim",                        cmd = "Codi" },
   { "felipec/vim-sanegx",                         event = "BufRead" },
+  { "weilbith/nvim-code-action-menu",             cmd = "CodeActionMenu" },
+  { "dhruvasagar/vim-table-mode" },
+  { "folke/zen-mode.nvim" },
+  { "junegunn/fzf.vim" },
+  { "Pocco81/AbbrevMan.nvim" }, -- managing vim abbreviations.
+  { "hkupty/iron.nvim" }, --  Interactive Repl Over Neovim
+  { "jamestthompson3/nvim-remote-containers" }, -- Develop inside docker containers
+  { "tpope/vim-dadbod" }, -- Modern database interface
+  { "cuducos/yaml.nvim",                          ft = { "yaml" } },
+  { "MunifTanjim/nui.nvim" }, --  UI Component Library for Neovim.
+  {
+    "rmagatti/goto-preview", -- previewing definitions using floating windows
+    config = function()
+      require("goto-preview").setup({})
+    end,
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    ft = "markdown",
+    config = function()
+      vim.g.mkdp_auto_start = 1
+    end,
+  },
+  {
+    "rmagatti/auto-session",
+    config = function()
+      require("auto-session").setup({
+        log_level = "error",
+        auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+      })
+    end,
+  },
+  {
+    "rmagatti/session-lens",
+    requires = { "rmagatti/auto-session" },
+    config = function()
+      require("session-lens").setup({})
+    end,
+  },
+  {
+    "microsoft/vscode-js-debug",
+    opt = true,
+    run = "npm install --legacy-peer-deps && npm run compile",
+  },
+  {
+    "vuki656/package-info.nvim",
+    requires = "MunifTanjim/nui.nvim",
+    config = function()
+      require("package-info").setup({})
+    end,
+  },
+  {
+    "AckslD/nvim-neoclip.lua", -- Clipboard manager
+    config = function()
+      require("neoclip").setup()
+    end,
+  },
+  {
+    "abecodes/tabout.nvim",
+    config = function()
+      require("tabout").setup({})
+    end,
+  },
+  {
+    "ellisonleao/dotenv.nvim",
+    config = function()
+      require("dotenv").setup({})
+    end,
+  },
+  {
+    "crusj/structrue-go.nvim",
+    branch = "main",
+    config = function()
+      require("structrue-go").setup()
+    end,
+  },
+  {
+    "folke/lsp-colors.nvim", -- LSP diagnostics highlight groups for color schemes
+    config = function()
+      require("lsp-colors").setup({})
+    end,
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    config = function()
+      require("refactoring").setup({})
+    end,
+  },
+
+  { "MunifTanjim/prettier.nvim" },
+  { "kdheepak/lazygit.nvim" },
+  { "sindrets/diffview.nvim",                   requires = "nvim-lua/plenary.nvim" },
+  -- not used end
+  { "williamboman/nvim-lsp-installer" },
+  { "WhoIsSethDaniel/mason-tool-installer.nvim" },
+  { "mg979/vim-visual-multi" }, --  Multiple cursors
+  { "rottencandy/vimkubectl" }, -- Manage Kubernetes resources
+  { "tpope/vim-repeat" },
+  { "p00f/nvim-ts-rainbow" },
+  { "manzeloth/live-server" },
   { "Nash0x7E2/awesome-flutter-snippets" },
   { "hollowtree/vscode-vue-snippets" },
   { "ravenxrz/DAPInstall.nvim" },
   { "mfussenegger/nvim-dap-python" },
-  { "mxsdev/nvim-dap-vscode-js",                  requires = { "mfussenegger/nvim-dap" } },
-  { "leoluz/nvim-dap-go",                         module = "dap-go" },
+  { "mxsdev/nvim-dap-vscode-js",                requires = { "mfussenegger/nvim-dap" } },
+  { "leoluz/nvim-dap-go",                       module = "dap-go" },
   { "simrat39/rust-tools.nvim" },
   { "rhysd/vim-fixjson" },
-  { "weilbith/nvim-code-action-menu",             cmd = "CodeActionMenu" },
-  { "dhruvasagar/vim-table-mode" },
   { "AndrewRadev/splitjoin.vim" },
   { "LudoPinelli/comment-box.nvim" }, -- Clarify and beautify your comments
-  { "folke/zen-mode.nvim" },
-  { "hrsh7th/cmp-nvim-lsp-signature-help" },
-  { "junegunn/fzf.vim" },
   { "KabbAmine/vCoolor.vim" }, -- color picker
   { "sudormrfbin/cheatsheet.nvim" }, -- nvim cheatsheat
-  { "Pocco81/AbbrevMan.nvim" }, -- managing vim abbreviations.
-  { "michaelb/sniprun",                           run = "bash ./install.sh" }, --  a code runner plugin
-  { "hkupty/iron.nvim" }, --  Interactive Repl Over Neovim
+  { "michaelb/sniprun",                         run = "bash ./install.sh" }, --  a code runner plugin
   { "ggandor/lightspeed.nvim" }, -- motion plugin
-  { "jamestthompson3/nvim-remote-containers" }, -- Develop inside docker containers
-  { "tpope/vim-dadbod" }, -- Modern database interface
-  { "cuducos/yaml.nvim",                          ft = { "yaml" } },
+  { "sbdchd/neoformat" },
   {
     "folke/todo-comments.nvim",
+    event = "BufRead",
     config = function()
-      require("todo-comments").setup({})
+      require("todo-comments").setup()
     end,
   },
   {
@@ -190,12 +260,6 @@ lvim.plugins = {
     "akinsho/flutter-tools.nvim",
     config = function()
       require("flutter-tools").setup({})
-    end,
-  },
-  {
-    "ellisonleao/dotenv.nvim",
-    config = function()
-      require("dotenv").setup({})
     end,
   },
   {
@@ -217,22 +281,25 @@ lvim.plugins = {
     end,
   },
   {
-    "crusj/structrue-go.nvim",
-    branch = "main",
-    config = function()
-      require("structrue-go").setup()
-    end,
-  },
-  {
     "ray-x/go.nvim",
     config = function()
       require("go").setup()
     end,
+    event = { "CmdlineEnter" },
+    ft = { "go", 'gomod' },
+    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
   {
     "j-hui/fidget.nvim", --  Standalone UI for nvim-lsp progress
     config = function()
       require("fidget").setup({})
+    end,
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    requires = "kevinhwang91/promise-async",
+    config = function()
+      require("ufo").setup({})
     end,
   },
   {
@@ -284,42 +351,10 @@ lvim.plugins = {
     end,
   },
   {
-    "folke/lsp-colors.nvim", -- LSP diagnostics highlight groups for color schemes
-    config = function()
-      require("lsp-colors").setup({})
-    end,
-  },
-  {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
     config = function()
       require("trouble").setup({})
-    end,
-  },
-  {
-    "ThePrimeagen/refactoring.nvim",
-    config = function()
-      require("refactoring").setup({})
-    end,
-  },
-  { "MunifTanjim/nui.nvim" }, --  UI Component Library for Neovim.
-  {
-    "vuki656/package-info.nvim",
-    requires = "MunifTanjim/nui.nvim",
-    config = function()
-      require("package-info").setup({})
-    end,
-  },
-  {
-    "AckslD/nvim-neoclip.lua", -- Clipboard manager
-    config = function()
-      require("neoclip").setup()
-    end,
-  },
-  {
-    "abecodes/tabout.nvim",
-    config = function()
-      require("tabout").setup({})
     end,
   },
   {
@@ -336,11 +371,6 @@ lvim.plugins = {
     end,
   },
   {
-    "microsoft/vscode-js-debug",
-    opt = true,
-    run = "npm install --legacy-peer-deps && npm run compile",
-  },
-  {
     "anuvyklack/pretty-fold.nvim",
     config = function()
       require("pretty-fold").setup()
@@ -354,26 +384,12 @@ lvim.plugins = {
     end,
   },
   {
-    "phaazon/hop.nvim", -- motion
+    "phaazon/hop.nvim",
     event = "BufRead",
     config = function()
-      require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-    end,
-  },
-  {
-    "rmagatti/auto-session",
-    config = function()
-      require("auto-session").setup({
-        log_level = "error",
-        auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-      })
-    end,
-  },
-  {
-    "rmagatti/session-lens",
-    requires = { "rmagatti/auto-session" },
-    config = function()
-      require("session-lens").setup({})
+      require("hop").setup()
+      vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
     end,
   },
   {
@@ -395,14 +411,6 @@ lvim.plugins = {
     end,
   },
   {
-    "iamcco/markdown-preview.nvim",
-    run = "cd app && npm install",
-    ft = "markdown",
-    config = function()
-      vim.g.mkdp_auto_start = 1
-    end,
-  },
-  {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
     config = function()
@@ -417,10 +425,16 @@ lvim.plugins = {
     end,
   },
   {
-    "ethanholz/nvim-lastplace", --  reopen files at your last edit position
+    "ethanholz/nvim-lastplace",
     event = "BufRead",
     config = function()
-      require("nvim-lastplace").setup({})
+      require("nvim-lastplace").setup({
+        lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+        lastplace_ignore_filetype = {
+          "gitcommit", "gitrebase", "svn", "hgcommit",
+        },
+        lastplace_open_folds = true,
+      })
     end,
   },
   {
@@ -433,12 +447,6 @@ lvim.plugins = {
         css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
         css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
       })
-    end,
-  },
-  {
-    "rmagatti/goto-preview", -- previewing definitions using floating windows
-    config = function()
-      require("goto-preview").setup({})
     end,
   },
   {
@@ -658,6 +666,11 @@ lvim.plugins = {
   -- { "ray-x/aurora" },
 }
 
+
+--  ********************************************************************************
+--  ********************************* Lsp Settings *********************************
+--  ********************************************************************************
+
 lvim.builtin.telescope.on_config_done = function(telescope)
   pcall(telescope.load_extension, "project")
   pcall(telescope.load_extension, "media_files")
@@ -666,16 +679,24 @@ lvim.builtin.telescope.on_config_done = function(telescope)
   pcall(telescope.load_extension, "dap")
   pcall(telescope.load_extension, "file_browser")
   pcall(telescope.load_extension, "neoclip")
-  pcall(telescope.load_extension, "media_files")
   -- pcall(telescope.load_extension, "yaml_schema")
   -- pcall(telescope.load_extension, "vimspector")
 end
 
-require("luasnip.loaders.from_vscode").lazy_load() -- You can pass { paths = "./my-snippets/"} as well
+local lspconfig = require("lspconfig")
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
 
--- require("lspkind").init({})
--- require("nightfox").setup({})
--- vim.cmd("colorscheme nightfox")
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+lspconfig.emmet_ls.setup({
+  capabilities = capabilities,
+  filetypes = { "html", "typescriptreact", "javascriptreact", "js", "vue", "css", "sass", "scss", "less" },
+  init_options = { html = { options = { ["bem.enabled"] = true } } },
+})
+
 require("lspconfig").gopls.setup({
   settings = { gopls = { gofumpt = true } },
 })
@@ -710,6 +731,16 @@ require("lspconfig").jsonls.setup({
   },
 })
 
+--  *************************************************************************************
+--  ********************************* Plugins Settings *********************************
+--  *************************************************************************************
+--  
+-- require("lspkind").init({})
+-- require("nightfox").setup({})
+-- vim.cmd("colorscheme nightfox")
+
+require("luasnip.loaders.from_vscode").lazy_load() -- You can pass { paths = "./my-snippets/"} as well
+
 local iron = require("iron.core")
 iron.setup({
   config = {
@@ -721,6 +752,22 @@ iron.setup({
   ignore_blank_lines = true,
 })
 
+local rt = require("rust-tools")
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
+
+-- vim.cmd([[
+--      let g:vimspector_sidebar_width = 85
+--      let g:vimspector_bottombar_height = 15
+--      let g:vimspector_terminal_maxwidth = 70
+-- ]])
+--
 -- require("shade").setup({
 --   overlay_opacity = 50,
 --   opacity_step = 1,
@@ -730,6 +777,10 @@ iron.setup({
 --     toggle = "<F5>",
 --   },
 -- })
+
+-- ****************************************************************************************
+-- ****************************** Formatters and lintters config **************************
+-- ****************************************************************************************
 
 require("prettier").setup({
   bin = "prettier",
@@ -767,23 +818,6 @@ require("prettier").setup({
     vue_indent_script_and_style = false,
   },
 })
-
-local lspconfig = require("lspconfig")
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
-}
-
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-lspconfig.emmet_ls.setup({
-  -- emmit , first run npm install -g emmet-ls
-  capabilities = capabilities,
-  filetypes = { "html", "typescriptreact", "javascriptreact", "js", "vue", "css", "sass", "scss", "less" },
-  init_options = { html = { options = { ["bem.enabled"] = true } } },
-})
-
--- formatters and lintters config
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
   {
@@ -814,15 +848,28 @@ formatters.setup({
   { command = "gofmt",    filetypes = { "go" } },
 })
 
---          keybindings
-vim.api.nvim_command("augroup user_plugin_cursorword")
-vim.api.nvim_command("autocmd!")
-vim.api.nvim_command("autocmd FileType NvimTree,lspsagafinder,dashboard,vista let b:cursorword = 0")
-vim.api.nvim_command("autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif")
-vim.api.nvim_command("autocmd InsertEnter * let b:cursorword = 0")
-vim.api.nvim_command("autocmd InsertLeave * let b:cursorword = 1")
-vim.api.nvim_command("augroup END")
-vim.api.nvim_command("autocmd BufEnter * lua vim.diagnostic.hide()")
+
+--  *************************************************************************************
+--  ************************************ keybindings ************************************
+--  *************************************************************************************
+
+-- lvim.builtin.which_key.mappings["i"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Show Documentions" }
+-- lvim.builtin.which_key.mappings['T'] = {
+--    name = "task runner",
+--    t = { "<cmd>:OverseerToggle<cr>", "Select the current changes." },
+-- }
+
+lvim.builtin.which_key.mappings['?'] = {}
+lvim.builtin.which_key.mappings[';'] = {}
+
+lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<C-l>"] = ":BufferLineCycleNext<cr>"
+lvim.keys.normal_mode["<C-h>"] = ":BufferLineCyclePrev<cr>"
+lvim.keys.normal_mode["<C-q>"] = ":%bd|e#<CR>"
+lvim.keys.normal_mode["<C-PageDown>"] = ":BufferLineMovePrev<CR>"
+lvim.keys.normal_mode["<C-PageUp>"] = ":BufferLineMoveNext<CR>"
+lvim.keys.normal_mode["<C-p>"] = ":Telescope resume<cr>"
+lvim.keys.normal_mode["<C-]>"] = ":EasyCompleteGotoDefinition<cr>"
 
 vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
@@ -841,11 +888,6 @@ end, { remap = true })
 vim.keymap.set("", "T", function()
   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
 end, { remap = true })
-
--- lvim.builtin.telescope.defaults.history.path = '~/.local/share/nvim/telescope_history'
--- lvim.builtin.telescope.defaults.history.limit = 100
---
--- lvim.builtin.which_key.mappings["i"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Show Documentions" }
 
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["lA"] = { "<cmd>:CodeActionMenu<cr>", "code actions menu" }
@@ -873,11 +915,6 @@ lvim.builtin.which_key.mappings["gq"] = {
   p = { "<cmd>:GitConflictPrevConflict <cr>", "Move to the previous conflict" },
   q = { "<cmd>:GitConflictListQf <cr>", "Get all conflict to quickfix" },
 }
-
--- lvim.builtin.which_key.mappings['T'] = {
---    name = "task runner",
---    t = { "<cmd>:OverseerToggle<cr>", "Select the current changes." },
--- }
 
 lvim.builtin.which_key.mappings["f"] = {
   name = "Find",
@@ -907,7 +944,6 @@ lvim.builtin.which_key.mappings["u"] = {
   name = "Utilities",
   o = { "<cmd>SymbolsOutline<cr>", "symbols outline" },
   b = { "<cmd>:CBaclbox<cr>", "box around comment" },
-  t = { "<cmd>:lua require('betterTerm').open()<cr>", "terminal" },
   m = { "<cmd>:MarkdownPreview<cr>", "Markdown Preview" },
   c = { "<cmd>:Telescope macroscope<cr>", "Cliboard" },
   C = { "<cmd>:PickColorInsert<cr>", "Color Picker" },
@@ -996,20 +1032,14 @@ lvim.builtin.which_key.mappings["F"] = {
 --   H = { "<cmd>lua require('config.vimspector').toggle_human_mode()<cr>", "Toggle HUMAN mode" },
 -- }
 
--- Debugging setup
--- vim.cmd([[
---      let g:vimspector_sidebar_width = 85
---      let g:vimspector_bottombar_height = 15
---      let g:vimspector_terminal_maxwidth = 70
--- ]])
 
-require("dap-vscode-js").setup({
-  node_path = "node",
-  -- debugger_cmd = { "js-debug-adapter" },
-  debugger_path = "/home/ahmad-khatib/debuggers/vscode-js-debug",
-  adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
-  log_file_path = "/home/ahmad-khatib/debuggers/vscode-js-debug/log/log.log",
-  log_file_level = 3,
+--  *************************************************************************************
+--  ********************************* Debuging Settings *********************************
+--  *************************************************************************************
+
+local dap_install = require("dap-install")
+dap_install.setup({
+  installation_path = "/home/ahmad-khatib/debuggers/",
 })
 
 local dap = require("dap")
@@ -1070,28 +1100,11 @@ for _, language in ipairs({ "typescript", "javascript" }) do
   }
 end
 
--- dap.adapters.firefox = {
---   type = 'executable',
---   command = 'node',
---   args = { '/home/ahmad-khatib/debuggers/vscode-firefox-debug/dist/adapter.bundle.js' },
--- }
-
--- dap.configurations.typescript = {
---   name = 'Debug with Firefox',
---   type = 'firefox',
---   request = 'launch',
---   reAttach = true,
---   url = 'http://localhost:3000',
---   webRoot = '${workspaceFolder}',
---   firefoxExecutable = '/usr/bin/firefox'
--- }
-
-local codelldb_path = "/home/ahmad-khatib/debuggers/codelldb/extension/adapter/codelldb"
 dap.adapters.codelldb = {
   type = "server",
   port = "${port}",
   executable = {
-    command = codelldb_path,
+    command = "/home/ahmad-khatib/debuggers/codelldb/extension/adapter/codelldb",
     args = { "--port", "${port}" },
   },
 }
@@ -1112,21 +1125,6 @@ dap.configurations.go = {
     dlvToolPath = vim.fn.exepath("dlv"), -- Adjust to where delve is installed
   },
 }
-
-local rt = require("rust-tools")
-rt.setup({
-  server = {
-    on_attach = function(_, bufnr)
-      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-    end,
-  },
-})
-
-local dap_install = require("dap-install")
-dap_install.setup({
-  installation_path = "/home/ahmad-khatib/debuggers/",
-})
 
 dap_install.config("php", {
   adapters = {
@@ -1154,7 +1152,19 @@ dap_install.config("php", {
   },
 })
 
---         Autocommands
+-- ****************************************************************************************
+-- ********************************** Autocommands ****************************************
+-- ****************************************************************************************
+
+vim.api.nvim_command("augroup user_plugin_cursorword")
+vim.api.nvim_command("autocmd!")
+vim.api.nvim_command("autocmd FileType NvimTree,lspsagafinder,dashboard,vista let b:cursorword = 0")
+vim.api.nvim_command("autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif")
+vim.api.nvim_command("autocmd InsertEnter * let b:cursorword = 0")
+vim.api.nvim_command("autocmd InsertLeave * let b:cursorword = 1")
+vim.api.nvim_command("augroup END")
+vim.api.nvim_command("autocmd BufEnter * lua vim.diagnostic.hide()")
+
 lvim.autocommands = {
   { "BufWrite",    { pattern = { "*.lua" }, command = ":Neoformat stylua" } },
   { "BufWrite",    { pattern = { "*.vue" }, command = ":Prettier" } },
@@ -1174,7 +1184,57 @@ lvim.autocommands = {
 --   { "CursorHold", "*", "lua vim.diagnostic.open_float(0,{scope='line'})" },
 -- }
 
---     notes
+--  ****************************************************************************************************
+--  ****************************************************************************************************
+--  *********************************         INFORMATION              *********************************
+--  ****************************************************************************************************
+--  ****************************************************************************************************
+
+-- <C-\> <M-1/2/3>	toggleterm (terminal)	normal
+-- ╭──────────────────────────────────────────────────────────────────────────────╮
+-- │ TIP: <leader> is space by default, read :help keycodes for more key names    │
+-- │ TIP: <M> is alt on Windows/Linux and option on MacOS                         │
+-- │ TIP: Non-leader keybindings (for e.g. <C-\>, mentioned below and             │
+-- │  others) can be viewed by pressing <backspace> in the which-key main menu    │
+-- ╰──────────────────────────────────────────────────────────────────────────────╯
+--                     ╭────────────────────────────────-----------──╮
+--                     │ key	        description	           mode    │
+--                     │ K	       hover information	       normal  │
+--                     │ gd	       go to definition	         normal  │
+--                     │ gD	       go to declaration	       normal  │
+--                     │ gr	       go to references	         normal  │
+--                     │ gI	       go to implementation	     normal  |
+--                     │ gs	       show signature help	     normal  │
+--                     │ gl	       show line diagnostics     normal  │
+--                     ╰─────────────────────────────────-----------─╯
+--  ╭─────────────────────────────────────────────────────────╮
+--  │  key	          description	                      mode   │
+--  │  <leader>/	   comment	normal,                  visual  │
+--  │ gb	            block comment	                   visual │
+--  │  <M-k>	       move line(s) up	normal,          visual  │
+--  │ <M-j>       	move line(s) down	normal,          visual │
+--  ╰─────────────────────────────────────────────────────────╯
+
+-- key	                           description	                              mode
+-- <C-space>	                   show completion menu	                       insert
+-- <CR> <C-y>	                    confirm	insert
+-- <C-e>	                         abort	insert
+-- <C-k> <Up> <Tab>	             select previous item	                       insert
+-- <C-j> <Down> <S-Tab>       	   select next item	                         insert
+-- <C-d>	                         scroll docs up	                           insert
+-- <C-f>	                         scroll docs down	                         insert
+-- <CR> <Tab>	                 jump to next jumpable in a snippet	           insert
+-- <S-Tab>	                  jump to previous jumpable in a snippet	       insert
+--
+-- To see if a particular key has already been bound:       :verbose map <TAB>
+-- :nmap for normal, :vmap for visual, :imap for insert.
+--
+--- ****************************************************************************************************
+--- ****************************************************************************************************
+--  *************************************** Sidebar Commands *******************************************
+--  ****************************************************************************************************
+--  ****************************************************************************************************
+
 -- Lsp   &&     Mason      &&        TS           &&     Packer    package managers
 -- :Bracey                    live editing
 -- :IncRename + pattern       rename a text
