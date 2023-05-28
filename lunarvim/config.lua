@@ -676,6 +676,7 @@ lvim.builtin.telescope.on_config_done = function(telescope)
   pcall(telescope.load_extension, "media_files")
   pcall(telescope.load_extension, "smart_history")
   pcall(telescope.load_extension, "session-lens")
+  pcall(telescope.load_extension, "lazygit")
   pcall(telescope.load_extension, "dap")
   pcall(telescope.load_extension, "file_browser")
   pcall(telescope.load_extension, "neoclip")
@@ -734,7 +735,7 @@ require("lspconfig").jsonls.setup({
 --  *************************************************************************************
 --  ********************************* Plugins Settings *********************************
 --  *************************************************************************************
---  
+--
 -- require("lspkind").init({})
 -- require("nightfox").setup({})
 -- vim.cmd("colorscheme nightfox")

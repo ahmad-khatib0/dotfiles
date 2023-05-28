@@ -1,0 +1,33 @@
+CURL: 
+-G or GET and -P or POST, and with -d data will of application/x-www-form-urlencoded Content-Type
+
+curl -G http://172.18.0.1/BuyturkaApi/home/variables -d "categories=women" | jq  # -d query params
+curl -X POST -d 'name=linuxize&email=linuxize@example.com' https://example.com/contact.php 
+curl -X POST -H "Content-Type: application/json" -d '{"text": "this is send by curl"}'  http://localhost/story
+posting a file: 
+curl -X POST -F 'image=@/home/user/Pictures/wallpaper.jpg' http://example.com/upload
+
+
+The following commands will get you the public IP address of your interfaces:
+curl ifconfig.me
+curl -4/-6 icanhazip.com
+curl ipinfo.io/ip
+curl api.ipify.org
+curl checkip.dyndns.org
+dig +short myip.opendns.com @resolver1.opendns.com
+host myip.opendns.com resolver1.opendns.com
+curl ident.me
+curl bot.whatismyipaddress.com
+curl ipecho.net/plain
+
+The following commands will get you the private IP address of your interfaces:
+ifconfig -a
+ip addr (ip a)
+hostname -I | awk '{print $1}'
+ip route get 1.2.3.4 | awk '{print $7}'
+(Fedora) Wifi-Settings→ click the setting icon next to the Wifi name that you are connected to → Ipv4 and Ipv6 both can be seen
+nmcli -p device show
+
+
+# lowercase all files names in a folder
+for f in `find`; do mv -v "$f" "`echo $f | tr '[A-Z]' '[a-z]'`"; done
