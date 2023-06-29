@@ -5,30 +5,30 @@
 lvim.log.level = "warn"
 vim.opt.backup = false
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-vim.opt.colorcolumn = "99999" -- fixes indentline for now
-vim.opt.foldexpr = "" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
-vim.opt.guifont = "firacode:h17" -- the font used in graphical neovim applications
-vim.opt.hlsearch = true -- highlight all matches on previous search pattern
-vim.opt.ignorecase = true -- ignore case in search patterns
-vim.opt.pumheight = 14 -- pop up menu height
-vim.opt.smartcase = true -- smart case
-vim.opt.smartindent = true -- make indenting smarter again
-vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
+vim.opt.colorcolumn = "99999"     -- fixes indentline for now
+vim.opt.foldexpr = ""             -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
+vim.opt.guifont = "firacode:h17"  -- the font used in graphical neovim applications
+vim.opt.hlsearch = true           -- highlight all matches on previous search pattern
+vim.opt.ignorecase = true         -- ignore case in search patterns
+vim.opt.pumheight = 14            -- pop up menu height
+vim.opt.smartcase = true          -- smart case
+vim.opt.smartindent = true        -- make indenting smarter again
+vim.opt.termguicolors = true      -- set term gui colors (most terminals support this)
 -- vim.opt.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.opt.undodir = vim.fn.stdpath("cache") .. "/undo"
-vim.opt.undofile = true -- enable persistent undo, which allows for the undotree to be saved to a file when exiting a buffer
-vim.opt.undofile = true -- enable persistent undo
-vim.opt.updatetime = 300 -- faster completion
-vim.opt.expandtab = true -- convert tabs to spaces
-vim.opt.expandtab = true -- convert tabs to spaces
-vim.opt.shiftwidth = 2 -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 2 -- insert 2 spaces for a tab
-vim.opt.cursorline = true -- highlight the current line
-vim.opt.number = true -- set numbered lines
+vim.opt.undofile = true        -- enable persistent undo, which allows for the undotree to be saved to a file when exiting a buffer
+vim.opt.undofile = true        -- enable persistent undo
+vim.opt.updatetime = 300       -- faster completion
+vim.opt.expandtab = true       -- convert tabs to spaces
+vim.opt.expandtab = true       -- convert tabs to spaces
+vim.opt.shiftwidth = 2         -- the number of spaces inserted for each indentation
+vim.opt.tabstop = 2            -- insert 2 spaces for a tab
+vim.opt.cursorline = true      -- highlight the current line
+vim.opt.number = true          -- set numbered lines
 vim.opt.relativenumber = false -- set relative numbered lines
-vim.opt.numberwidth = 4 -- set number column width to 2 {default 4}
-vim.opt.signcolumn = "yes" -- always show the sign column otherwise it would shift the text each time
-vim.opt.wrap = false -- display lines as one long line
+vim.opt.numberwidth = 4        -- set number column width to 2 {default 4}
+vim.opt.signcolumn = "yes"     -- always show the sign column otherwise it would shift the text each time
+vim.opt.wrap = false           -- display lines as one long line
 vim.opt.spell = false
 vim.opt.spelllang = "en"
 vim.opt.scrolloff = 8 -- is one of my fav
@@ -263,17 +263,20 @@ lvim.plugins = {
     cmd = "TroubleToggle",
   },
   { "LudoPinelli/comment-box.nvim" }, -- Clarify and beautify your comments
-  { "mg979/vim-visual-multi" }, --  Multiple cursors
+  { "mg979/vim-visual-multi" },       --  Multiple cursors
   { "p00f/nvim-ts-rainbow" },
   { "tpope/vim-repeat" },
   { "rottencandy/vimkubectl" },
   { "manzeloth/live-server" },
   { "AndrewRadev/splitjoin.vim" },
   { "WhoIsSethDaniel/mason-tool-installer.nvim" },
-  { "KabbAmine/vCoolor.vim" }, -- color picker
+  { "KabbAmine/vCoolor.vim" },       -- color picker
   { "sudormrfbin/cheatsheet.nvim" }, -- nvim cheatsheat
   { "sbdchd/neoformat" },
-  { "michaelb/sniprun",                         run = "bash ./install.sh" }, --  a code runner plugin
+  {
+    "michaelb/sniprun",
+    run = "bash ./install.sh"
+  }, --  a code runner plugin
   {
     "folke/todo-comments.nvim",
     config = function()
@@ -417,7 +420,7 @@ lvim.plugins = {
         RRGGBBAA = true,
         rgb_fn = true, -- CSS rgb() and rgba() functions
         hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css = true,    -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
         css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
       })
     end,
@@ -486,7 +489,12 @@ lvim.plugins = {
   { "rhysd/vim-fixjson" },
   { "nvim-treesitter/nvim-treesitter-angular" },
   { "hollowtree/vscode-vue-snippets" },
-  { "quick-lint/quick-lint-js",               rtp = "plugin/vim/quick-lint-js.vim", tag = "2.11.0", opt = true },
+  {
+    "quick-lint/quick-lint-js",
+    rtp = "plugin/vim/quick-lint-js.vim",
+    tag = "2.11.0",
+    opt = true
+  },
   {
     "jose-elias-alvarez/typescript.nvim",
     config = function()
@@ -504,8 +512,14 @@ lvim.plugins = {
   -- dap plugins
   { "ravenxrz/DAPInstall.nvim" },
   { "mfussenegger/nvim-dap-python" },
-  { "mxsdev/nvim-dap-vscode-js",         requires = { "mfussenegger/nvim-dap" } },
-  { "leoluz/nvim-dap-go",                module = "dap-go" },
+  {
+    "mxsdev/nvim-dap-vscode-js",
+    requires = { "mfussenegger/nvim-dap" }
+  },
+  {
+    "leoluz/nvim-dap-go",
+    module = "dap-go"
+  },
   {
     "theHamsta/nvim-dap-virtual-text",
     requires = { "mfussenegger/nvim-dap" },

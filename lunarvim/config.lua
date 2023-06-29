@@ -124,21 +124,21 @@ lvim.plugins = {
   { "nvim-telescope/telescope-file-browser.nvim" },
   { "ludovicchabant/vim-gutentags" }, -- tags file
   { "jghauser/mkdir.nvim" },
-  { "diepm/vim-rest-console" }, -- rest client
+  { "diepm/vim-rest-console" },       -- rest client
   { "metakirby5/codi.vim",                        cmd = "Codi" },
   { "felipec/vim-sanegx",                         event = "BufRead" },
   { "weilbith/nvim-code-action-menu",             cmd = "CodeActionMenu" },
   { "dhruvasagar/vim-table-mode" },
   { "folke/zen-mode.nvim" },
   { "junegunn/fzf.vim" },
-  { "Pocco81/AbbrevMan.nvim" }, -- managing vim abbreviations.
-  { "hkupty/iron.nvim" }, --  Interactive Repl Over Neovim
+  { "Pocco81/AbbrevMan.nvim" },                 -- managing vim abbreviations.
+  { "hkupty/iron.nvim" },                       --  Interactive Repl Over Neovim
   { "jamestthompson3/nvim-remote-containers" }, -- Develop inside docker containers
-  { "tpope/vim-dadbod" }, -- Modern database interface
+  { "tpope/vim-dadbod" },                       -- Modern database interface
   { "cuducos/yaml.nvim",                          ft = { "yaml" } },
-  { "MunifTanjim/nui.nvim" }, --  UI Component Library for Neovim.
+  { "MunifTanjim/nui.nvim" },                   --  UI Component Library for Neovim.
   {
-    "rmagatti/goto-preview", -- previewing definitions using floating windows
+    "rmagatti/goto-preview",                    -- previewing definitions using floating windows
     config = function()
       require("goto-preview").setup({})
     end,
@@ -227,20 +227,28 @@ lvim.plugins = {
   { "rottencandy/vimkubectl" }, -- Manage Kubernetes resources
   { "tpope/vim-repeat" },
   { "p00f/nvim-ts-rainbow" },
-  { "manzeloth/live-server" },
   { "Nash0x7E2/awesome-flutter-snippets" },
   { "hollowtree/vscode-vue-snippets" },
   { "ravenxrz/DAPInstall.nvim" },
   { "mfussenegger/nvim-dap-python" },
-  { "mxsdev/nvim-dap-vscode-js",                requires = { "mfussenegger/nvim-dap" } },
-  { "leoluz/nvim-dap-go",                       module = "dap-go" },
+  {
+    "mxsdev/nvim-dap-vscode-js",
+    requires = { "mfussenegger/nvim-dap" }
+  },
+  {
+    "leoluz/nvim-dap-go",
+    module = "dap-go"
+  },
   { "simrat39/rust-tools.nvim" },
   { "rhysd/vim-fixjson" },
   { "AndrewRadev/splitjoin.vim" },
   { "LudoPinelli/comment-box.nvim" }, -- Clarify and beautify your comments
-  { "KabbAmine/vCoolor.vim" }, -- color picker
-  { "sudormrfbin/cheatsheet.nvim" }, -- nvim cheatsheat
-  { "michaelb/sniprun",                         run = "bash ./install.sh" }, --  a code runner plugin
+  { "KabbAmine/vCoolor.vim" },        -- color picker
+  { "sudormrfbin/cheatsheet.nvim" },  -- nvim cheatsheat
+  {
+    "michaelb/sniprun",
+    run = "bash ./install.sh"
+  },                             --  a code runner plugin
   { "ggandor/lightspeed.nvim" }, -- motion plugin
   { "sbdchd/neoformat" },
   {
@@ -444,7 +452,7 @@ lvim.plugins = {
         RRGGBBAA = true,
         rgb_fn = true, -- CSS rgb() and rgba() functions
         hsl_fn = true, -- CSS hsl() and hsla() functions
-        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css = true,    -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
         css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
       })
     end,
@@ -708,13 +716,13 @@ require("lspconfig").cmake.setup({})
 require("lspconfig").sqlls.setup({})
 require("lspconfig").sqlls.setup({})
 require("lspconfig").tsserver.setup({})
-require("lspconfig").eslint.setup({}) -- npm i -g vscode-langservers-extracted
+require("lspconfig").eslint.setup({})        -- npm i -g vscode-langservers-extracted
 require("lspconfig").stylelint_lsp.setup({}) -- npm i -g stylelint-lsp
-require("lspconfig").tailwindcss.setup({}) -- npm install -g @tailwindcss/language-server
-require("lspconfig").vuels.setup({}) -- npm install -g vls
-require("lspconfig").angularls.setup({}) -- npm install -g @angular/language-server
+require("lspconfig").tailwindcss.setup({})   -- npm install -g @tailwindcss/language-server
+require("lspconfig").vuels.setup({})         -- npm install -g vls
+require("lspconfig").angularls.setup({})     -- npm install -g @angular/language-server
 require("lspconfig").cssmodules_ls.setup({}) -- npm install -g cssmodules-language-server
-require("lspconfig").dockerls.setup({}) -- npm install -g dockerfile-language-server-nodejs
+require("lspconfig").dockerls.setup({})      -- npm install -g dockerfile-language-server-nodejs
 require("lspconfig").volar.setup({
   filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
   nit_options = {
@@ -845,7 +853,7 @@ formatters.setup({
   },
   { command = "autopep8", filetypes = { "python" } }, --  pip install pycodestyle autopep8
   { command = "fixjson",  filetypes = { "json" } },
-  { command = "prettier", filetypes = { "php" } }, -- npm install -g prettier @prettier/plugin-php
+  { command = "prettier", filetypes = { "php" } },    -- npm install -g prettier @prettier/plugin-php
   { command = "gofmt",    filetypes = { "go" } },
 })
 

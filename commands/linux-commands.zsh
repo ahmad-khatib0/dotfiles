@@ -1,6 +1,6 @@
 alias d= "date"
 # -u/--universal
-alias n= "ncal"# or : cal => calander 
+alias n= "ncal"# or : cal => calendar 
 # -M | -j | -h | -3 | ncal -3hMJ | -A2 | -B5
 # A2 B | => B=before A=after 
 alias sort= "sort"
@@ -17,17 +17,17 @@ alias file="file"#
 alias rm="rmdir"# r | i | f 
 alias mv="mv source destintion"#mv folder file folder file.... =>move them step backward
 alias cp="cp source destination"# -r
-alias history= "history | less"#|just: !number => retrive the command  
+alias history= "history | less"#|just: !number => retrieve the command  
 alias history-size="echo $HISTORYFILESIZE"
 alias history-session-size="echo $HISTOYSIZE"
 alias cat= "cat" #cat ~/.bash_history
-alias tac="tac filename"#print the file recursivly 
+alias tac="tac filename"#print the file recursively 
 alias less="less filename"# is better than cat for the long content files 
-alias rev="rev filename" #reverse the chracters in the lines 
-alias head="head filename" #print the first 10 lines of beggining of a file 
+alias rev="rev filename" #reverse the characters in the lines 
+alias head="head filename" #print the first 10 lines of beginning of a file 
 alias head="tail filename" #print the last 10 lines of end of a file 
 #-n number (for head or tail ) => how many lines | -c number => how many bytes | -f => its for tail 
-# and its usful to listen to events that occuring in your computer like: tail -f syslog 
+# and its usful to listen to events that occurring in your computer like: tail -f syslog 
 alias wc="wc filename"#-l | -w | -m | -c 
 alias sort="sort filename " # -r | -n | -u | kNumber => column number 
  
@@ -43,26 +43,27 @@ alias sort="sort filename " # -r | -n | -u | kNumber => column number
 #Piping 
 #  ls /usr/bin -l | less  => pipe the output to less/    ls /usr/bin -1a | wc -l  => 1144 
 #  ls /usr/bin -1a | wc -l   > count.txt  =>  this is copaining piping with redirecting 
-# cat msg.txt | tr s S  => by this tr piping , replase all s lowercase to uppercase  | 
+# cat msg.txt | tr s S  => by this tr piping , replace all s lowercase to uppercase  | 
 #  cat msg.txt | tr a-z A-Z => cappilaze them all  |   cat msg.txt | tr -d s    
 # cat msg.txt | tr -d [:alpha:] | tr -d : | tr -d  [:blank:] > just_numbers.txt 
 #   cat -n data.txt | head -15 | tail -10
 #  ls /usr/bin -lh | sort -k5hr | head -10 > big-files.txt 
 
-# cat count.txt countries.txt data.txt |tee colection.txt | wc  
-# =>  220  295  2401   in termenal , and all the three files content to colection.txt 
-# this tee pipline will not stuck in the middle , but it will detirmine the cat function and will 
+# cat count.txt countries.txt data.txt |tee collection.txt | wc  
+# =>  220  295  2401   in termenal , and all the three files content to collection.txt 
+# this tee pipeline will not stuck in the middle , but it will detirmine the cat function and will 
 # count the words using wc  , so for example if you did it in normal way like so:
-# cat count.txt countries.txt data.txt | wc -w  > colection.txt  => 
-#  220  295  2401  in termenal and in  colection.txt , so we didn't get what we want 
+# cat count.txt countries.txt data.txt | wc -w  > collection.txt  => 
+#  220  295  2401  in termenal and in  collection.txt , so we didn't get what we want 
 #  head -n 151 all-pokemon.txt | tr -d 0-9 | sort > orgininal-151.txt
 
 alias *="echo *.txt"#ls | cat ....
 alias **="echo *ts*"# ls | cat .... any file has ts in it 
 alias ?="ls app?.css"# | mv *.??? Styles/ => any js won't be include  
-# any file has just one chracter after app , and sure has ext .css , note: app.css won't be include 
-alias []="echo app.[123].css"#|[1-3] ... app4.css won't be included 
-#[A-Z] will look on just files contaied of one letter only , while [A-Z]*   will match all uppercase folders
+# any file has just one character after app , and sure has ext .css , note: app.css won't be include 
+alias []="echo app.[123].css"#|[1-3] ... app4.css won\'t be included 
+
+#[A-Z] will look on just files contained of one letter only , while [A-Z]*   will match all uppercase folders
 #note: we can to have multiple ranges: [A-H]*[pc]
 # echo[^A-Z]* => excluding all uppercase folders | [^CcPcOc] => excluding folders began with thoes 
 
@@ -91,7 +92,7 @@ alias find="find -mmin -30"#or +30/30 |  -amin number | -mtime number | atime nu
 # find -empty -ok rm  '{}' ';'  => this ok arg , to ask you for confermation 
 # find -empty -exec ls '{}'  ';'   
 # find -iname "*[13579]_open*" | wc -l
-# find -newer yesterday.txt   => find file that modifed more reciently than yesterday.txt 
+# find -newer yesterday.txt   => find file that modified more reciently than yesterday.txt 
 # find -empty |xargs ls -l   
 
 alias grep ="chapter" great-getspay.txt -i
@@ -105,14 +106,14 @@ alias grep ="chapter" great-getspay.txt -i
 # | C1  => same as A1 B1 |     
 # grep "6" SongOfMyself.txt -wn => 131:6  (line 131)
 
-# regex:   grep "p...." SongOfMyself.txt -w  => match words have four chracters after p 
+# regex:   grep "p...." SongOfMyself.txt -w  => match words have four characters after p 
 # grep "^I" SongOfMyself.txt -wn  => ^ lines start with I 
 # grep ")$" SongOfMyself.txt -c  => $ lines end with ) 
 #  grep "2[1-6]" SongOfMyself.txt -C1  => [] range  , and line after and before each line 
 
 # grep "birds?" -wE SongOfMyself.txt => ? means that s is an optional and E to enable extended regex
 #  grep "[aeiou]{2}" SongOfMyself.txt -E  => {2} means 
-# desplay just the words that has tow of thoes vouel chracters 
+# display just the words that has tow of thoes vouel characters 
 
 # ps -aux | grep "sound" -i => ps -aux is for the process that are  occering  on all the users 
 # man grep | grep "count" -i -C1  => search inside the grep man 

@@ -29,5 +29,24 @@ ip route get 1.2.3.4 | awk '{print $7}'
 nmcli -p device show
 
 
+# The following commands will get you the current running ports:
+  $ sudo netstat -tunlp
+  $ sudo netstat -tnlp | grep :80   
+  $ sudo ss -tunlp 
+  $ sudo lsof -nP -iTCP -sTCP:LISTEN
+
+-- To find what process is listening on a particular port, for example, port 3306 you would use:
+$ sudo lsof -nP -iTCP:3306 -sTCP:LISTEN
+
+
+
 # lowercase all files names in a folder
 for f in `find`; do mv -v "$f" "`echo $f | tr '[A-Z]' '[a-z]'`"; done
+
+# replace whitespace with underscore 
+for file in *; do mv "$file" "$(echo "$file" | tr ' ' '-')" ; done
+
+# replace whitespace with underscore recursievly
+find . -depth -name '* *' \
+  | while IFS= read -r f ; do mv -i "$f" "$(dirname "$f")/$(basename "$f"|tr ' ' _)" ; done
+
