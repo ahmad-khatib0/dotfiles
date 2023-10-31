@@ -1,0 +1,203 @@
+{
+  "editor.tokenColorCustomizations": {
+    "comments": "#a1a1a1"
+  },
+  "workbench.iconTheme": "vscode-icons",
+  "editor.formatOnSave": true,
+  "editor.suggestSelection": "first",
+  "editor.largeFileOptimizations": false,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'zero', 'onum'",
+  "editor.fontSize": 16,
+  "editor.tabSize": 2,
+  "editor.linkedEditing": true,
+  "editor.codeLens": true,
+  "editor.parameterHints.enabled": false,
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": "on",
+    "other": "on"
+  },
+  "editor.fontWeight": 700,
+  "editor.fontFamily": "FiraCode Nerd Font",
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "vue-html": "html",
+    "php": "html",
+    "go": "gohtml"
+  },
+  "emmet.syntaxProfiles": {
+    "vue": "html",
+    "vue-html": "html",
+    "php": "html"
+  },
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "files.associations": {
+    "*.blade.php": "html",
+    "*.tpl": "html"
+  },
+  "workbench.startupEditor": "newUntitledFile",
+  "files.exclude": {
+    "**/.git": false
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.rulers": [120],
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": false
+  },
+  "dart.devToolsBrowser": "default",
+  "dart.lineLength": 120,
+  "dart.debugExternalPackageLibraries": false,
+  "dart.debugSdkLibraries": true,
+  "terminal.integrated.profiles.linux": {
+    "zsh": {
+      "path": "zsh"
+    },
+    "pwsh": {
+      "path": "pwsh",
+      "icon": "terminal-powershell"
+    },
+    "bash": {
+      "path": "bash",
+      "icon": "terminal-bash"
+    },
+    "fish": {
+      "path": "fish"
+    },
+    "tmux": {
+      "path": "tmux",
+      "icon": "terminal-tmux"
+    },
+    "zsh (2)": {
+      "path": "/usr/bin/zsh"
+    }
+  },
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": ["${env:windir}\\Sysnative\\cmd.exe", "${env:windir}\\System32\\cmd.exe"],
+      "args": [],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash"
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[blade]": {
+    "editor.autoClosingBrackets": "always",
+    "cSpell.showAutocompleteSuggestions": true
+  },
+  "prettier.bracketSameLine": true,
+  "prettier.tabWidth": 2,
+  "prettier.htmlWhitespaceSensitivity": "strict",
+  "prettier.printWidth": 110,
+  "prettier.singleQuote": true,
+  "emmet.excludeLanguages": ["markdown"],
+
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.mouseWheelZoom": true,
+  "vim.foldfix": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "redhat.telemetry.enabled": false,
+  "editor.minimap.enabled": false,
+  "cSpell.enableFiletypes": [
+    "blade",
+    "code-runner-output",
+    "code-text-binary",
+    "dart",
+    "diff",
+    "dockercompose",
+    "dockerfile",
+    "git-rebase",
+    "gohtml",
+    "groovy",
+    "html",
+    "http",
+    "ignore",
+    "ini",
+    "jsx",
+    "jsx-attr",
+    "jsx-tags",
+    "lua",
+    "makefile",
+    "properties",
+    "sql",
+    "styled-css",
+    "txt",
+    "vue",
+    "vue-html",
+    "vue-postcss",
+    "vue-sugarss",
+    "xml"
+  ],
+  "dart.flutterSdkPath": "/home/ahmad-khatib/sdks/flutter",
+  "php.validate.executablePath": "/opt/lampp/bin/php",
+  "prettier.semi": false,
+  "go.toolsManagement.autoUpdate": true,
+  "go.testFlags": ["-v", "-count=1"], // count 1 disables test cache
+  "gopls": {
+    "ui.semanticTokens": true
+  },
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.editor.empty.hint": "hidden",
+  "cSpell.userWords": ["khatib"],
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  }
+}

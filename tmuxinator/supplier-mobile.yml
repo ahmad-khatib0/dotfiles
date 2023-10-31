@@ -1,0 +1,26 @@
+# /home/ahmad-khatib/.config/tmuxinator/supplier-mobile.yml
+name: supplier-mobile
+root: ~/
+
+windows:
+  - app:
+      layout: main-vertical
+      panes:
+        - app:
+            - cd ~/Downloads/work/apps/active/mobile/supplier-mobile-app
+            - clear && codium . && clear
+  - back:
+      layout: main-vertical
+      panes:
+        - back:
+          - cd ~/Downloads/work/apps/active/backend/api/
+          - clear && lvim
+  - run:
+      layout: tiled
+      panes:
+        - back:
+          - cd ~/Downloads/work/apps/active/backend/api/
+          - clear && air
+        - back:
+          - cd ~/Downloads/work/apps/active/mobile/supplier-mobile-app/
+          - clear
