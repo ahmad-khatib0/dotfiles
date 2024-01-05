@@ -57,3 +57,22 @@ find . -depth -name '* *' \
 # delete recursievly 
 find . -name '.dart_tool' -type d -prune -exec trash {} +
 
+# delete recursievly must generated directories for lang: js, dart, java 
+find . -type d  \( \
+  -name ".angular" \
+  -o -name "node_modules" \
+  -o -name "build" \
+  -o -name "dist" \
+  -o -name ".next" \
+  -o -name ".dart_tool" \
+  -o -name ".flutter-plugins" \
+  -o -name ".idea" \
+  -o -name ".pub-cache" \
+  -o -name ".vagrant" \
+  -o -name ".venv" \
+  -o -name "vendor" \
+  -o -name ".terraform" \ 
+  \) -prune -exec trash {} +
+
+# delete recursievly files 
+find . -type f \( -name "tags" -o -name ".DS_Store" \) -prune -exec trash {} + 
